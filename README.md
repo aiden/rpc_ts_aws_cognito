@@ -20,12 +20,6 @@ export AWS_SECRET_KEY='xxxxxx'
 yarn test
 ```
 
-## Organization
-
-## Authentication Flow
-
-## On typing `AuthService`
-
 ## License
 
 rpc_ts_aws_cognito is licensed under the MIT License.
