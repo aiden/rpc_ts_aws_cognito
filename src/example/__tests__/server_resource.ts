@@ -20,7 +20,18 @@ export class ServerResource implements ExternalResource {
     const app = express();
     app.use(API_BASE, this.apiRoutes);
 
-    this.server = http.createServer(app).listen();
+    await new Promise((resolve, reject) => {
+      this.server = http.createServer(app).listen(err => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+    if (!this.server) {
+      throw new Error('Unreachable: server should have been initialized');
+    }
     const port = this.server.address().port;
     app.set('port', port);
   }
