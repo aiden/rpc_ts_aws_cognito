@@ -12,3 +12,9 @@ jobs:
       - checkout
       - run: yarn
       - run: yarn all
+
+workflows:
+  version: 2
+  all:
+    jobs:
+      - test
