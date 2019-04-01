@@ -27,9 +27,9 @@ export class Client {
    * provide authentication for the other services, and (2) we provide strong typing
    * where TypeScript fails us (for `SignUpExtra` and `MeInfo`, see `README.md`).
    */
-  private readonly auth: ModuleRpcClient.NiceService<AuthService>;
+  private readonly auth: ModuleRpcClient.ServiceMethodMap<AuthService>;
 
-  public readonly banking: ModuleRpcClient.NiceService<BankingService>;
+  public readonly banking: ModuleRpcClient.ServiceMethodMap<BankingService>;
 
   private readonly authClientContextConnector: ModuleRpcContextClient.TokenAuthClientContextConnector;
   private me_: MeInfo | undefined;
@@ -49,7 +49,7 @@ export class Client {
   ) {
     this.auth = ModuleRpcProtocolClient.getRpcClient(authServiceDefinition, {
       remoteAddress: `${serverUrl}${ROUTES.auth}`,
-    }).nice();
+    });
 
     this.authClientContextConnector = new ModuleRpcContextClient.TokenAuthClientContextConnector(
       async (refreshToken: string) => {
@@ -66,7 +66,7 @@ export class Client {
         remoteAddress: `${serverUrl}${ROUTES.banking}`,
         clientContextConnector: this.authClientContextConnector,
       },
-    ).nice();
+    );
   }
 
   async signUp(

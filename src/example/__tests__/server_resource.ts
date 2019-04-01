@@ -21,7 +21,7 @@ export class ServerResource implements ExternalResource {
     app.use(API_BASE, this.apiRoutes);
 
     await new Promise((resolve, reject) => {
-      this.server = http.createServer(app).listen(err => {
+      this.server = http.createServer(app).listen((err: any) => {
         if (err) {
           reject(err);
         } else {
